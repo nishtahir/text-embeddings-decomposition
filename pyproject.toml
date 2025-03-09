@@ -1,0 +1,59 @@
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core"]
+
+[tool.poetry]
+authors = ["Nish Tahir <nishtahir@outlook.com>"]
+description = ""
+name = "qr-decomposition"
+readme = "README.md"
+version = "0.1.0"
+
+[tool.poetry.dependencies]
+duckdb = "^1.2.1"
+matplotlib = "^3.10.1"
+numpy = "^2.2.3"
+openai = "^1.65.2"
+pandas = "^2.2.3"
+python = "^3.12"
+python-dotenv = "^1.0.1"
+scikit-learn = "^1.6.1"
+torch = "^2.6.0"
+torchaudio = "^2.6.0"
+torchvision = "^0.21.0"
+tqdm = "^4.67.1"
+typer = "^0.15.2"
+pytest = "^8.3.5"
+opentsne = "^1.0.2"
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.29.5"
+notebook = "^7.3.2"
+pyright = "^1.1.396"
+ruff = "^0.9.10"
+toml-sort = "^0.24.2"
+
+[tool.pyright]
+ignore = ["notebooks"]
+pythonVersion = "3.12"
+reportMissingTypeStubs = true
+reportPrivateImportUsage = false
+typeCheckingMode = "strict"
+venv = ".venv"
+venvPath = "."
+
+
+[tool.ruff]
+exclude = [".venv", "typings"]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.format]
+exclude = ["*.pyi"]
+skip-magic-trailing-comma = false
+
+[tool.tomlsort]
+all = true
+in_place = true
+sort_first = ["tool.poetry"]
+trailing_comma_inline_array = true
