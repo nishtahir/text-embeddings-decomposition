@@ -13,5 +13,15 @@ class ClassificationDataset(Dataset[tuple[torch.Tensor, torch.Tensor]]):
     def __getitem__(self, idx: int) -> tuple[torch.Tensor, torch.Tensor]:
         row = self.items.iloc[idx]  # type: ignore
         embedding = torch.tensor(row["embeddings"], dtype=torch.float32)
-        label = torch.tensor(row["labels"], dtype=torch.long)
-        return embedding, label
+        labels = torch.tensor(
+            [
+                row["toxic"],
+                row["severe_toxic"],
+                row["obscene"],
+                row["threat"],
+                row["insult"],
+                row["identity_hate"],
+            ],
+            dtype=torch.float32,
+        )
+        return embedding, labels
