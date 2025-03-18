@@ -127,8 +127,8 @@ async def train_imdb_model(
 
 @app.command("train-wikidata-model")
 async def train_wikidata_model(
-    hidden_dim: int = 512,
-    batch_size: int = 64,
+    hidden_dim: int = 256,
+    batch_size: int = 128,
     learning_rate: float = 0.0001,
     num_epochs: int = 10,
     dropout: float = 0.2,

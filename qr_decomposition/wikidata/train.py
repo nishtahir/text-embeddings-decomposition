@@ -90,7 +90,10 @@ def step(
     num_epochs: int,
     grad_enabled: bool = True,
 ):
+    threshold = 0.8
     losses: list[float] = []
+    correct = 0
+    total = 0
 
     pbar = tqdm(loader, desc=f"{key.capitalize()}: {epoch + 1}/{num_epochs}")
     for embeddings, labels in pbar:
@@ -105,7 +108,13 @@ def step(
             loss.backward()
             optimizer.step()
 
+        # Calculate accuracy
+        predictions = (outputs > threshold).float()  # Convert logits to binary predictions
+        correct += (predictions == labels).sum().item()
+        total += labels.size(0) * labels.size(1)  # Batch size * num_classes
+
         losses.append(loss.item())
 
-        total_loss = sum(losses) / len(losses)
-        pbar.set_postfix_str(f"Loss: {total_loss:.4f}")
+        avg_loss = sum(losses) / len(losses)
+        accuracy = (correct / total) * 100 if total > 0 else 0
+        pbar.set_postfix_str(f"Loss: {avg_loss:.4f}, Accuracy: {accuracy:.2f}%")
